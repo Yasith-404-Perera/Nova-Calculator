@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="NOVA — A beautiful next-generation calculator">
+  <title>NOVA — Calculator</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- Background orbs -->
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<div class="app" role="application" aria-label="NOVA Calculator">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">✦</div>
+      <span class="app-name">NOVA</span>
+    </div>
+    <div class="header-controls">
+      <button class="icon-btn" id="memory-btn" aria-label="Memory" title="Memory">M</button>
+      <button class="icon-btn" id="history-btn" aria-label="History" title="History">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </button>
+      <div class="theme-toggle" role="radiogroup" aria-label="Theme">
+        <button class="theme-btn" data-theme="light" aria-label="Light theme" title="Light">☀️</button>
+        <button class="theme-btn" data-theme="auto" aria-label="Auto theme" title="Auto">🔄</button>
+        <button class="theme-btn" data-theme="dark" aria-label="Dark theme" title="Dark">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Display -->
+  <div class="display" aria-live="polite" aria-atomic="true">
+    <div class="memory-badge" id="memory-badge" aria-hidden="true">M</div>
+    <div class="expression" id="expression" aria-label="Expression"></div>
+    <div class="result" id="result" aria-label="Result">0</div>
+  </div>
+
+  <!-- Mode Tabs -->
+  <div class="mode-tabs" role="tablist" aria-label="Calculator mode">
+    <button class="mode-tab active" role="tab" aria-selected="true" data-mode="basic" id="tab-basic">Basic</button>
+    <button class="mode-tab" role="tab" aria-selected="false" data-mode="scientific" id="tab-sci">Sci</button>
+    <button class="mode-tab" role="tab" aria-selected="false" data-mode="converter" id="tab-conv">Conv</button>
+  </div>
+
+  <!-- Keypad -->
+  <div class="keypad" role="group" aria-label="Keypad">
+
+    <!-- Basic Section -->
+    <div class="keypad-section active" id="section-basic" role="tabpanel">
+      <div class="keypad-grid basic">
+        <button class="btn btn-clear" data-action="clear">AC</button>
+        <button class="btn btn-function" data-action="toggle-sign">±</button>
+        <button class="btn btn-function" data-action="percent">%</button>
+        <button class="btn btn-operator" data-action="divide">÷</button>
+
+        <button class="btn btn-number" data-value="7">7</button>
+        <button class="btn btn-number" data-value="8">8</button>
+        <button class="btn btn-number" data-value="9">9</button>
+        <button class="btn btn-operator" data-action="multiply">×</button>
+
+        <button class="btn btn-number" data-value="4">4</button>
+        <button class="btn btn-number" data-value="5">5</button>
+        <button class="btn btn-number" data-value="6">6</button>
+        <button class="btn btn-operator" data-action="subtract">−</button>
+
+        <button class="btn btn-number" data-value="1">1</button>
+        <button class="btn btn-number" data-value="2">2</button>
+        <button class="btn btn-number" data-value="3">3</button>
+        <button class="btn btn-operator" data-action="add">+</button>
+
+        <button class="btn btn-number btn-zero" data-value="00">00</button>
+        <button class="btn btn-number" data-value="0">0</button>
+        <button class="btn btn-number" data-action="decimal">.</button>
+        <button class="btn btn-equals" data-action="equals">=</button>
+      </div>
+    </div>
+
+    <!-- Scientific Section -->
+    <div class="keypad-section" id="section-scientific" role="tabpanel">
+      <div class="keypad-grid sci-functions">
+        <button class="btn btn-function" data-action="sin">sin</button>
+        <button class="btn btn-function" data-action="cos">cos</button>
+        <button class="btn btn-function" data-action="tan">tan</button>
+        <button class="btn btn-function" data-action="log">log</button>
+        <button class="btn btn-function" data-action="ln">ln</button>
+        <button class="btn btn-function" data-action="sqrt">√</button>
+        <button class="btn btn-function" data-action="square">x²</button>
+        <button class="btn btn-function" data-action="cube">x³</button>
+        <button class="btn btn-function" data-action="power">xʸ</button>
+        <button class="btn btn-function" data-action="ten-power">10ˣ</button>
+        <button class="btn btn-function" data-action="reciprocal">1/x</button>
+        <button class="btn btn-function" data-action="factorial">n!</button>
+        <button class="btn btn-function" data-action="pi">π</button>
+        <button class="btn btn-function" data-action="e">e</button>
+        <button class="btn btn-function" data-action="lparen">(</button>
+        <button class="btn btn-function" data-action="rparen">)</button>
+        <button class="btn btn-function" data-action="rand">rand</button>
+        <button class="btn btn-function" data-action="abs">|x|</button>
+        <button class="btn btn-function" data-action="inv">inv</button>
+        <button class="btn btn-function" id="angle-toggle" data-action="toggle-angle">DEG</button>
+      </div>
+      <div class="keypad-grid basic">
+        <button class="btn btn-clear" data-action="clear">AC</button>
+        <button class="btn btn-function" data-action="toggle-sign">±</button>
+        <button class="btn btn-function" data-action="percent">%</button>
+        <button class="btn btn-operator" data-action="divide">÷</button>
+
+        <button class="btn btn-number" data-value="7">7</button>
+        <button class="btn btn-number" data-value="8">8</button>
+        <button class="btn btn-number" data-value="9">9</button>
+        <button class="btn btn-operator" data-action="multiply">×</button>
+
+        <button class="btn btn-number" data-value="4">4</button>
+        <button class="btn btn-number" data-value="5">5</button>
+        <button class="btn btn-number" data-value="6">6</button>
+        <button class="btn btn-operator" data-action="subtract">−</button>
+
+        <button class="btn btn-number" data-value="1">1</button>
+        <button class="btn btn-number" data-value="2">2</button>
+        <button class="btn btn-number" data-value="3">3</button>
+        <button class="btn btn-operator" data-action="add">+</button>
+
+        <button class="btn btn-number" data-value="0">0</button>
+        <button class="btn btn-function" data-action="decimal">.</button>
+        <button class="btn btn-function btn-zero" id="sci-backspace" data-action="backspace">⌫</button>
+        <button class="btn btn-equals" data-action="equals">=</button>
+      </div>
+    </div>
+
+    <!-- Converter Section -->
+    <div class="keypad-section" id="section-converter" role="tabpanel">
+      <div class="converter-panel">
+        <div class="converter-row">
+          <select class="converter-select" id="conv-category" aria-label="Conversion category">
+            <option value="length">Length</option>
+            <option value="mass">Mass</option>
+            <option value="temperature">Temperature</option>
+            <option value="volume">Volume</option>
+            <option value="area">Area</option>
+            <option value="speed">Speed</option>
+            <option value="time">Time</option>
+            <option value="digital">Digital Storage</option>
+          </select>
+        </div>
+        <div class="converter-row">
+          <input class="converter-input" id="conv-from" type="number" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="From value">
+          <button class="converter-swap" id="conv-swap" aria-label="Swap units" title="Swap">⇄</button>
+          <input class="converter-input" id="conv-to" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="To value" readonly>
+        </div>
+        <div class="converter-row">
+          <select class="converter-select" id="conv-from-unit" aria-label="From unit"></select>
+          <select class="converter-select" id="conv-to-unit" aria-label="To unit"></select>
+        </div>
+        <div class="converter-quick" id="conv-quick"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- History Overlay -->
+  <div class="history-overlay" id="history-overlay" role="dialog" aria-label="Calculation history">
+    <div class="history-header">
+      <span class="history-title">History</span>
+      <div class="history-actions">
+        <button class="history-btn" id="history-close">Done</button>
+        <button class="history-btn danger" id="history-clear">Clear All</button>
+      </div>
+    </div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Chatbot Toggle -->
+<button class="chat-toggle" id="chat-toggle" aria-label="AI Assistant" title="Ask NOVA AI">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <line x1="12" y1="8" x2="12" y2="14"/>
+    <line x1="9" y1="11" x2="15" y2="11"/>
+  </svg>
+</button>
+
+<!-- Chatbot Panel -->
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <span>NOVA AI</span>
+    <button class="chat-close" id="chat-close" aria-label="Close">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-message bot">
+      <div class="chat-bubble">Hi! I'm NOVA AI. Ask me anything about math, conversions, or calculations.</div>
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Ask anything..." autocomplete="off" aria-label="Ask AI">
+    <button class="chat-send" id="chat-send" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>

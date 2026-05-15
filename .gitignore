@@ -1,0 +1,6 @@
+.claude/
+node_modules/
+AGENTS.md
+CLAUDE.md
+package-lock.json
+package.json
